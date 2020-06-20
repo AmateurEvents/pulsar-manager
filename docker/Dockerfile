@@ -36,6 +36,7 @@ RUN apk update
 RUN apk add nginx \
   && apk add supervisor \
   && apk add postgresql \
+  && apk add tar \
   && rm  -rf /tmp/* \
   && rm /var/cache/apk/*
 
@@ -45,7 +46,7 @@ WORKDIR /pulsar-manager
 
 COPY build/distributions/pulsar-manager.tar .
 
-RUN tar -zxvf pulsar-manager.tar
+RUN tar -xvf pulsar-manager.tar
 
 COPY docker/supervisord.conf /etc/
 
