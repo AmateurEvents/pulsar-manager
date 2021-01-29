@@ -69,4 +69,26 @@ COPY docker/entrypoint.sh /pulsar-manager/
 
 COPY front-end/dist /usr/share/nginx/html/
 
+RUN addgroup -g 116 pulsar
+
+RUN adduser --disabled-password --ingroup pulsar pulsar
+
+RUN mkdir -p /run/postgresql /data /run/nginx
+RUN chown -R pulsar:pulsar \
+      /run/postgresql/ \
+      /run/nginx \
+      /var/log/nginx \
+      /var/lib/nginx \
+      /var/tmp/nginx/ \
+      /data \
+      /etc/nginx \
+      /pulsar-manager \
+      /etc/supervisord-private-key.conf \
+      /etc/supervisord-secret-key.conf \
+      /etc/supervisord-token.conf \
+      /etc/supervisord-configuration-file.conf
+RUN chmod 750 /data
+
+USER pulsar
+
 ENTRYPOINT [ "/pulsar-manager/entrypoint.sh" ]

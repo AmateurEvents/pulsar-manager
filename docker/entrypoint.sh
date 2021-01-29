@@ -23,15 +23,15 @@ if [[ "$URL" = "jdbc:postgresql://127.0.0.1:5432/pulsar_manager" ]]
 then
 echo 'Starting PostGreSQL Server'
 
-addgroup pulsar
-adduser --disabled-password --ingroup pulsar pulsar
+# addgroup pulsar
+# adduser --disabled-password --ingroup pulsar pulsar
 mkdir -p /run/postgresql
 chown -R pulsar:pulsar /run/postgresql/
 chown -R pulsar:pulsar /data
 chown pulsar:pulsar /pulsar-manager/init_db.sql
 chmod 750 /data
 
-su - pulsar -s /bin/sh /pulsar-manager/startup.sh
+/bin/sh /pulsar-manager/startup.sh
 fi
 
 echo 'Starting Pulsar Manager Front end'
